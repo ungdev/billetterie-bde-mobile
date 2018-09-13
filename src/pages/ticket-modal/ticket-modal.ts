@@ -24,6 +24,7 @@ export class TicketModal {
   }
 
   close(){
+    console.log('tshirt value', this.tshirt)
     this.viewCtrl.dismiss()
   }
 }

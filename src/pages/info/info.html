@@ -1,0 +1,156 @@
+<ion-header (swipe)="swipeEvent($event)">
+  <div *ngIf="infosVisible" style="margin-top: 20px">
+    <ion-navbar color="navbar">
+      <ion-title>
+        <ion-icon name="information-circle"></ion-icon>
+        Informations
+      </ion-title>
+    </ion-navbar>
+  </div>
+  <div *ngIf="programmeVisible" style="margin-top: 20px">
+    <ion-navbar color="navbar">
+      <ion-title>
+        <ion-icon name="calendar"></ion-icon>
+        Programme de la soirée
+      </ion-title>
+    </ion-navbar>
+  </div>
+  <div *ngIf="partenaireVisible" style="margin-top: 20px">
+    <ion-navbar color="navbar">
+      <ion-title>
+        <ion-icon name="briefcase"></ion-icon>
+        Partenaires
+      </ion-title>
+    </ion-navbar>
+  </div>
+  <ion-segment [(ngModel)]="selection" (ionChange)="ionSelect()" color="primary" no-padding>
+    <ion-segment-button value="info">
+      <ion-icon name="information-circle"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="programme">
+      <ion-icon name="musical-notes"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="partenaires">
+      <ion-icon name="briefcase"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding  (swipe)="swipeEvent($event)">
+    <div *ngIf="infosVisible">
+      <ion-list text-wrap>
+          <ion-list-header color="header">
+            Accès
+          </ion-list-header>
+          <ion-item>
+            <ion-icon name="man" item-start></ion-icon>
+                Interdit aux moins de 18 ans
+          </ion-item>
+          <ion-item>
+            <ion-icon name="bowtie" item-start></ion-icon>
+                Tenue de soirée obligatoire
+          </ion-item>
+          <ion-item>
+          <ion-icon name="beer" item-start></ion-icon>
+                Etat convenable exigé
+          </ion-item>
+          <ion-list-header color="header">
+            Adresse
+          </ion-list-header>
+  
+          <button (click)="click()" ion-item>
+            <ion-icon name="pin" item-start></ion-icon>
+                12 rue Marie curie, Troyes
+            <ion-icon *ngIf="!isIOS" name="arrow-dropright" item-end></ion-icon>
+          </button>
+  
+          <ion-list-header color="header">
+            Date
+          </ion-list-header>
+          <ion-item>
+            <ion-icon name="calendar" item-start></ion-icon>
+                2 Juin 2018 - 20h
+          </ion-item>
+          <ion-list-header color="header">
+            Entrée du Gala
+          </ion-list-header>
+          <ion-item>
+                Ouverture à 20h
+          </ion-item>
+          <ion-item class="small">
+                Fermeture temporaire de 23h30 à 00h15
+          </ion-item>
+          <ion-item>
+                Fermeture de l'entrée à 1h30
+          </ion-item>
+          <ion-item>
+                Baisse du niveau sonore à 4h
+          </ion-item>
+          <ion-list-header color="header">
+            Nous contacter
+          </ion-list-header>
+          <ion-item>
+            <ion-icon name="mail" item-start></ion-icon>
+                gala@utt.fr
+          </ion-item>
+          <ion-item>
+            <ion-icon name="settings" item-start></ion-icon>
+                Problèmes techniques : ung@utt.fr
+          </ion-item>
+      </ion-list>
+    </div>
+    <div *ngIf="programmeVisible"></div>
+    <div *ngIf="partenaireVisible">
+      <ion-buttons class="buttons">
+        <button (click)="bdeLink();" no-padding>
+            <img src="assets/imgs/partenaires/bde.jpg"/>
+        </button>
+        <button (click)="uttLink();" no-padding>
+            <img src="assets/imgs/partenaires/utt.jpg"/>
+        </button>
+        <button (click)="k2aLink();" no-padding>
+            <img src="assets/imgs/partenaires/k2a.png"/>
+        </button>
+        <button (click)="rgLink();" no-padding>
+            <img src="assets/imgs/partenaires/rg.jpg"/>
+        </button>
+        <button (click)="amnestyLink();" no-padding>
+            <img src="assets/imgs/partenaires/amnesty.png"/>
+        </button>
+        <button (click)="nrjLink();" no-padding>
+            <img src="assets/imgs/partenaires/nrj.jpg"/>
+        </button>
+        <button (click)="teklissLink();" no-padding>
+            <img src="assets/imgs/partenaires/tekliss.jpg"/>
+        </button>
+        <button (click)="socgeneraleLink();" no-padding>
+            <img src="assets/imgs/partenaires/socgenerale.png"/>
+        </button>
+        <button (click)="premautoLink();" no-padding>
+            <img src="assets/imgs/partenaires/premauto.jpg"/>
+        </button>
+        <button (click)="festilightLink();" no-padding>
+            <img src="assets/imgs/partenaires/festilight.png"/>
+        </button>
+        <button (click)="socotecLink();" no-padding>
+            <img src="assets/imgs/partenaires/socotec.jpg"/>
+        </button>
+        <button (click)="mgelLink();" no-padding>
+            <img src="assets/imgs/partenaires/mgel.jpg"/>
+        </button>
+         <button (click)="allysonLink();" no-padding>
+            <img src="assets/imgs/partenaires/allyson.png"/>
+        </button>
+        <button (click)="laserLink();" no-padding>
+            <img src="assets/imgs/partenaires/lasergame.jpg"/>
+        </button>
+        <button (click)="estLink();" no-padding>
+            <img src="assets/imgs/partenaires/est.jpg"/>
+        </button>
+        <button (click)="mercureLink();" no-padding>
+            <img src="assets/imgs/partenaires/mercure.jpeg"/>
+        </button>
+      </ion-buttons>
+    </div>
+  </ion-content>
+  

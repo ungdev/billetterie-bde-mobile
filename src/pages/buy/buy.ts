@@ -13,8 +13,7 @@ import { TicketModal } from '../ticket-modal/ticket-modal'
 })
 export class BuyPage {
 
-  tickets: any;
-
+  tickets: any
 
   constructor(
       private iab: InAppBrowser,
@@ -31,10 +30,10 @@ export class BuyPage {
 
   swipeEvent(event){
     if(event.direction == 2){
-      this.navCtrl.parent.select(3);
+      this.navCtrl.parent.select(0);
     }
     if(event.direction == 4){
-      this.navCtrl.parent.select(1);
+      this.navCtrl.parent.select(2);
     }
   }
 
