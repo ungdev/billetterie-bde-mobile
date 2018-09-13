@@ -3,21 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from '../pages/home/home'
+import { TabsPage } from '../pages/tabs/tabs'
+import { TicketsPage } from '../pages/tickets/tickets'
+import { BuyPage } from '../pages/buy/buy'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser'
+import { TicketModal } from '../pages/ticket-modal/ticket-modal';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    TicketsPage,
+    BuyPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    TicketModal,
   ],
   imports: [
     BrowserModule,
@@ -26,14 +29,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    TicketsPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    BuyPage,
+    TicketModal,
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,0 +1,53 @@
+<ion-header  (swipe)="swipeEvent($event)">
+  <ion-navbar color="navbar">
+      <ion-title>
+        <ion-icon name="cart"></ion-icon>
+        Panier
+      </ion-title>
+      <ion-buttons end>
+        <button (click)="addTicket()" ion-button icon-only>
+          <ion-icon class="addIcon" name="add-circle" color="white"></ion-icon>
+        </button>
+    </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding  (swipe)="swipeEvent($event)">
+  <ion-list>
+    <ion-card *ngFor="let ticket of tickets" >
+        <ion-item>
+          <h2>{{ ticket.name }} {{ ticket.firstName }}</h2>
+          <h3>{{ ticket.mail }}</h3>
+        </ion-item>
+      
+        <ion-card-content>
+          <p>Place pour la R2D</p>
+          <div *ngFor="let option of ticket.options">
+              <p> - {{option.quantity}} {{option.optionID}}</p>
+          </div>
+        </ion-card-content>
+      
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small (click)="editTicket(ticket)">
+              <ion-icon name="create"></ion-icon>
+              <div>edit</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small color="danger" (click)="deleteTicket(ticket)">
+              <ion-icon name="trash"></ion-icon>
+              <div>supprimer</div>
+            </button>
+          </ion-col>
+        </ion-row>
+    </ion-card>
+  </ion-list>
+  <button ion-button color="primary" (click) = "addTicket()" round full>Ajouter un ticket</button>
+</ion-content>
+
+
+
+<ion-footer>
+  <button ion-button color="primary" (click) = "paye()" round full>Payer mon panier</button>
+</ion-footer>
