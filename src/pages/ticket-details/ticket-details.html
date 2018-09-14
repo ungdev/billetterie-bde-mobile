@@ -1,0 +1,20 @@
+<ion-header  (swipe)="swipeEvent($event)">
+  <ion-navbar color="navbar">
+      <ion-title>
+        <ion-icon name="barcode"></ion-icon>
+        {{ ticket.firstName }} {{ ticket.name }}
+      </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding  (swipe)="swipeEvent($event)">
+  <ion-card><ion-card-content style="text-align: center">{{ ticket.mail }}</ion-card-content></ion-card>
+  <ion-card>
+    <ngx-qrcode [qrc-value]="ticket.qrcode"></ngx-qrcode>
+  </ion-card>
+
+  <ion-list>
+    <ion-item style="text-align: center">{{ ticket.qrcode }}</ion-item>
+    <ion-item *ngFor="let option of ticket.options">{{ option.optionID }} : {{ option.quantity }}</ion-item>
+  </ion-list>
+</ion-content>

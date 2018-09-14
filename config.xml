@@ -3,7 +3,7 @@
     <name>billetterie-bde-mobile</name>
     <description>Application pour la billetterie du BDE UTT.</description>
     <author email="ung@utt.fr" href="ung.utt.fr">UTT Net Group</author>
-    <content original-src="index.html" src="http://169.254.107.85:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -84,6 +84,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
-    <allow-navigation href="http://169.254.107.85:8100" sessionid="d5f979e2" />
+    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
     <engine name="ios" spec="4.5.5" />
 </widget>

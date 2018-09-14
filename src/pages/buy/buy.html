@@ -5,9 +5,7 @@
         Panier
       </ion-title>
       <ion-buttons end>
-        <button (click)="addTicket()" ion-button icon-only>
-          <ion-icon class="addIcon" name="add-circle" color="white"></ion-icon>
-        </button>
+        <button (click)="close()" ion-button color="danger">Annuler</button>
     </ion-buttons>
     </ion-navbar>
 </ion-header>
@@ -23,7 +21,7 @@
         <ion-card-content>
           <p>Place pour la R2D</p>
           <div *ngFor="let option of ticket.options">
-              <p> - {{option.quantity}} {{option.optionID}}</p>
+              <p> - {{option.optionID}} : {{option.quantity}}</p> 
           </div>
         </ion-card-content>
       

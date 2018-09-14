@@ -2,7 +2,7 @@
   <ion-navbar color="navbar">
       <ion-title>
         <ion-icon name="barcode"></ion-icon>
-        Billets
+        Mes Billets
       </ion-title>
       <ion-buttons end>
       <button (click)="addClicked()" ion-button icon-only>
@@ -13,23 +13,48 @@
 </ion-header>
 
 <ion-content padding  (swipe)="swipeEvent($event)">
-  <div *ngIf="!isEmpty(tickets)">
-      <button *ngFor="let ticket of tickets" (click)="goToDetails(ticket);" color="primary" ion-button full>
-          {{ticket.surname}} {{ticket.name}}
-      </button>
-  </div>
-  <div *ngIf="isEmpty(tickets)">
+  <ion-list *ngIf="tickets.length > 0">
+      <ion-card *ngFor="let ticket of tickets" >
+          <ion-item>
+            <h2>{{ ticket.name }} {{ ticket.firstName }}</h2>
+            <h3>{{ ticket.mail }}</h3>
+          </ion-item>
+        
+          <ion-card-content>
+            <p>Place pour la R2D</p>
+            <div *ngFor="let option of ticket.options">
+                <p> - {{option.optionID}} : {{option.quantity}}</p> 
+            </div>
+          </ion-card-content>
+        
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-start clear small (click)="ticketDetails(ticket)">
+                <ion-icon name="eye"></ion-icon>
+                <div>voir</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-start clear small color="danger" (click)="deleteTicket(ticket)">
+                <ion-icon name="trash"></ion-icon>
+                <div>supprimer</div>
+              </button>
+            </ion-col>
+          </ion-row>
+      </ion-card>
+  </ion-list>
+  <div *ngIf="tickets.length === 0">
     <ion-card>
       <ion-card-content>
-        <ion-label text-wrap class="empty">Vous n'avez pas de billet, vous pouvez en ajouter un en cliquant sur le bouton +. Si vous n'avez pas encore de billet à ajouter, vous pouvez en acheter un ici :</ion-label>
+        <ion-label text-wrap class="empty">Vous n'avez pas de billet, vous pouvez en acheter un avec le bouton ci-dessous, ou en ajouter un déjà acheté avec le bouton +</ion-label>
       </ion-card-content>
     </ion-card>
-    <button ion-button color="primary" (click) = "goToBilleterie();" round full class="place">Prendre sa place</button>
+    <button ion-button color="primary" (click) = "goToBilleterie()" round full class="place">Acheter des places</button>
   </div>
 </ion-content>
 
 
 
-<ion-footer *ngIf="!isEmpty(tickets)">
-  <button ion-button color="primary" (click) = "goToBilleterie();" round full class="place">Prendre sa place</button>
+<ion-footer *ngIf="tickets.length > 0">
+  <button ion-button color="primary" (click) = "goToBilleterie()" round full class="place">Acheter des places</button>
 </ion-footer>

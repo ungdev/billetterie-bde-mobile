@@ -14,26 +14,18 @@
   <ion-content padding>
     <ion-list>
       <ion-item>
-        <ion-input type="text" value={{ticket.name}} placeholder="Nom"></ion-input>
+        <ion-input [(ngModel)]="name" type="text" value={{ticket.name}} placeholder="Nom"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" value={{ticket.firstName}} placeholder="Prénom"></ion-input>
+        <ion-input [(ngModel)]="firstName" type="text" value={{ticket.firstName}} placeholder="Prénom"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" value={{ticket.mail}} placeholder="Mail"></ion-input>
+        <ion-input [(ngModel)]="mail" type="text" value={{ticket.mail}} placeholder="Mail"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>T-shirt</ion-label>
-        <ion-select [(ngModel)]="tshirt" interface="popover">
-          <ion-option value="S">S</ion-option>
-          <ion-option value="M">M</ion-option>
-          <ion-option value="L">L</ion-option>
-          <ion-option value="XL">XL</ion-option>
-          <ion-option value="XXL">XXL</ion-option>
-          <ion-option value="XXXL">XXXL</ion-option>
-        </ion-select>
+        <ion-input [(ngModel)]="don" type="number" min=0 value={{don}} placeholder="Don de promo (optionnel)"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button color="secondary" (click) = "close()" round full>Ajouter au panier</button>
+    <button ion-button color="secondary" (click) = "validate()" round full>Ajouter au panier</button>
   </ion-content>
   

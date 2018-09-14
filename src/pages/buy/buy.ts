@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ViewController } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AlertController } from 'ionic-angular';
 
 import { RequestService } from '../../services/RequestService'
+import { StorageService } from '../../services/StorageService'
 
 import { TicketModal } from '../ticket-modal/ticket-modal'
 
 @Component({
   templateUrl: 'buy.html',
-  providers: [RequestService]
+  providers: [RequestService, StorageService]
 })
 export class BuyPage {
 
@@ -19,13 +20,12 @@ export class BuyPage {
       private iab: InAppBrowser,
       private navCtrl: NavController,
       private modalCtrl: ModalController,
+      private viewCtrl: ViewController,
       private alertCtrl: AlertController,
       private request: RequestService,
+      private storage: StorageService,
       ) {
-        this.tickets = [
-          {id:1, name: 'Dufour', firstName: 'Arnaud', mail: 'arnaud.dufour@utt.fr', options:[{optionID: 't-shirt-M', quantity: 3}]},
-          {id:2, name: 'DAutume', firstName: 'Christian Edouard', mail: 'chris.daut@utt.fr'},
-        ]
+        this.tickets = storage.getCartTickets()
   }
 
   swipeEvent(event){
@@ -37,24 +37,36 @@ export class BuyPage {
     }
   }
 
+  close() {
+    this.viewCtrl.dismiss()
+  }
+
   paye() {
     console.log('paye')
-    this.tickets = [ //temp
-      {id:1, name: 'Dufour', firstName: 'Arnaud', mail: 'arnaud.dufour@utt.fr'},
-      {id:2, name: 'DAutume', firstName: 'Christian Edouard', mail: 'chris.daut@utt.fr'},
-    ]
+    if(true) {  //etupay validation TODO
+      this.tickets.forEach(ticket => {
+        ticket.qrcode = "1234"
+        this.storage.addTicket(ticket)
+      })
+      this.storage.clearCartTickets()
+    } 
+    this.close()
   }
   editTicket(ticket){
     console.log('edit', ticket)
     this.modalCtrl.create(TicketModal, { ticket }).present()
   }
   deleteTicket(ticket){
-    console.log('delete', ticket)
-    this.tickets.splice(this.tickets.indexOf(ticket), 1)
-    console.log(this.tickets)
+    this.storage.removeCartTicket(ticket)
+    this.tickets= this.storage.getCartTickets()
   }
 
   addTicket() {
-    this.modalCtrl.create(TicketModal).present()
+    let modal = this.modalCtrl.create(TicketModal)
+    modal.onDidDismiss(() => {
+      this.tickets = this.storage.getCartTickets()
+      console.log(this.tickets)
+    })
+    modal.present()
   }
 }

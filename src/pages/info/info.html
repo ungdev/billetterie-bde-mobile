@@ -57,13 +57,11 @@
           <ion-list-header color="header">
             Adresse
           </ion-list-header>
-  
-          <button (click)="click()" ion-item>
+          <ion-item>
             <ion-icon name="pin" item-start></ion-icon>
                 12 rue Marie curie, Troyes
-            <ion-icon *ngIf="!isIOS" name="arrow-dropright" item-end></ion-icon>
-          </button>
-  
+          </ion-item>
+          <button ion-button full (click)="openMap()">Plan d'accès</button>
           <ion-list-header color="header">
             Date
           </ion-list-header>
@@ -102,55 +100,52 @@
     <div *ngIf="programmeVisible"></div>
     <div *ngIf="partenaireVisible">
       <ion-buttons class="buttons">
-        <button (click)="bdeLink();" no-padding>
-            <img src="assets/imgs/partenaires/bde.jpg"/>
-        </button>
-        <button (click)="uttLink();" no-padding>
-            <img src="assets/imgs/partenaires/utt.jpg"/>
-        </button>
-        <button (click)="k2aLink();" no-padding>
-            <img src="assets/imgs/partenaires/k2a.png"/>
-        </button>
-        <button (click)="rgLink();" no-padding>
-            <img src="assets/imgs/partenaires/rg.jpg"/>
-        </button>
-        <button (click)="amnestyLink();" no-padding>
-            <img src="assets/imgs/partenaires/amnesty.png"/>
-        </button>
-        <button (click)="nrjLink();" no-padding>
-            <img src="assets/imgs/partenaires/nrj.jpg"/>
-        </button>
-        <button (click)="teklissLink();" no-padding>
-            <img src="assets/imgs/partenaires/tekliss.jpg"/>
-        </button>
-        <button (click)="socgeneraleLink();" no-padding>
-            <img src="assets/imgs/partenaires/socgenerale.png"/>
-        </button>
-        <button (click)="premautoLink();" no-padding>
-            <img src="assets/imgs/partenaires/premauto.jpg"/>
-        </button>
-        <button (click)="festilightLink();" no-padding>
-            <img src="assets/imgs/partenaires/festilight.png"/>
-        </button>
-        <button (click)="socotecLink();" no-padding>
-            <img src="assets/imgs/partenaires/socotec.jpg"/>
-        </button>
-        <button (click)="mgelLink();" no-padding>
-            <img src="assets/imgs/partenaires/mgel.jpg"/>
-        </button>
-         <button (click)="allysonLink();" no-padding>
-            <img src="assets/imgs/partenaires/allyson.png"/>
-        </button>
-        <button (click)="laserLink();" no-padding>
-            <img src="assets/imgs/partenaires/lasergame.jpg"/>
-        </button>
-        <button (click)="estLink();" no-padding>
-            <img src="assets/imgs/partenaires/est.jpg"/>
-        </button>
-        <button (click)="mercureLink();" no-padding>
-            <img src="assets/imgs/partenaires/mercure.jpeg"/>
-        </button>
-      </ion-buttons>
+          <button (click)="openLink('https://bde.utt.fr');" no-padding>
+              <img src="assets/imgs/partenaires/bde.jpg"/>
+          </button>
+          <button (click)="uttLink();" no-padding>
+              <img src="assets/imgs/partenaires/utt.jpg"/>
+          </button>
+          <button (click)="k2aLink();" no-padding>
+              <img src="assets/imgs/partenaires/k2a.png"/>
+          </button>
+          <button (click)="amnestyLink();" no-padding>
+              <img src="assets/imgs/partenaires/amnesty.png"/>
+          </button>
+          <button (click)="nrjLink();" no-padding>
+              <img src="assets/imgs/partenaires/nrj.jpg"/>
+          </button>
+          <button (click)="teklissLink();" no-padding>
+              <img src="assets/imgs/partenaires/tekliss.jpg"/>
+          </button>
+          <button (click)="socgeneraleLink();" no-padding>
+              <img src="assets/imgs/partenaires/socgenerale.png"/>
+          </button>
+          <button (click)="premautoLink();" no-padding>
+              <img src="assets/imgs/partenaires/premauto.jpg"/>
+          </button>
+          <button (click)="festilightLink();" no-padding>
+              <img src="assets/imgs/partenaires/festilight.png"/>
+          </button>
+          <button (click)="socotecLink();" no-padding>
+              <img src="assets/imgs/partenaires/socotec.jpg"/>
+          </button>
+          <button (click)="mgelLink();" no-padding>
+              <img src="assets/imgs/partenaires/mgel.jpg"/>
+          </button>
+            <button (click)="allysonLink();" no-padding>
+              <img src="assets/imgs/partenaires/allyson.png"/>
+          </button>
+          <button (click)="laserLink();" no-padding>
+              <img src="assets/imgs/partenaires/lasergame.jpg"/>
+          </button>
+          <button (click)="estLink();" no-padding>
+              <img src="assets/imgs/partenaires/est.jpg"/>
+          </button>
+          <button (click)="mercureLink();" no-padding>
+              <img src="assets/imgs/partenaires/mercure.jpeg"/>
+          </button>
+        </ion-buttons>
     </div>
   </ion-content>
   

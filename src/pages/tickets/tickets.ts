@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { AlertController } from 'ionic-angular';
-import { TicketDetailsPage } from './ticket_details'
+import { TicketDetailsPage } from '../ticket-details/ticket-details'
 
 import { RequestService } from '../../services/RequestService'
+import { StorageService } from '../../services/StorageService'
+import { BuyPage } from '../buy/buy'
 
 @Component({
   selector: 'page-ticket',
   templateUrl: 'tickets.html',
-  providers: [RequestService]
+  providers: [RequestService, StorageService]
 })
 export class TicketsPage {
 
@@ -21,9 +22,10 @@ export class TicketsPage {
       public navCtrl: NavController,
       public alertCtrl: AlertController,
       private request: RequestService,
+      private storage: StorageService,
+      private modalCtrl: ModalController
       ) {
-    this.tickets = []
-    this.getDataFromMemory()
+    this.tickets = storage.getTickets()
   }
 
   swipeEvent(event){
@@ -38,33 +40,47 @@ export class TicketsPage {
   isEmpty(obj){
     if(typeof obj === 'object' && obj !== null){
       if(Object.keys(obj).length === 0)
-        return true;
+        return true
     }
-    return false;;
+    return false
   }
 
   goToBilleterie(){
-    this.iab.create('http://billetterie.gala.utt.fr', '_system', {});
+    let modal = this.modalCtrl.create(BuyPage)
+    modal.onDidDismiss(() => {
+      this.tickets = this.storage.getTickets()
+    })
+    modal.present()
   }
 
-  goToDetails(ticket:any){
-    //this.checkTicket()
+  ticketDetails(ticket){
     this.navCtrl.push(TicketDetailsPage, {ticket:ticket, this:this});
+  }
+
+  deleteTicket(ticket) {
+    this.alertCtrl.create({
+      title: 'Confirmation',
+      subTitle: 'Voulez vous supprimer ce billet ?',
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel'
+        },
+        {
+          text: 'Oui',
+          handler: () => {
+            console.log('coucou')
+            this.storage.removeTicket(ticket)
+            this.tickets = this.storage.getTickets()
+          }
+        }
+      ]
+    }).present()
   }
 
   addClicked(){
     this.showPrompt()
   }
-
-  getDataFromMemory(){
-    /*this.storage.get('tickets').then(val=>{
-      this.tickets = val;
-      if(this.tickets === null)
-        this.tickets = []
-    })*/
-    this.tickets = []
-  }
-
  /* checkTicket(){
     for(let ticket in this.tickets){
       let encodedPath = encodeURI('https://api.gala.uttnetgroup.fr/ticket/code=' + this.tickets[ticket].qrcode + '&name=' + this.tickets[ticket].name);

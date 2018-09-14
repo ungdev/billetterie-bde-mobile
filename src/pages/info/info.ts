@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NavController } from 'ionic-angular'
 import { InAppBrowser } from '@ionic-native/in-app-browser'
-
+import { MapPage } from '../map/map'
 
 @Component({
   selector: 'page-info',
@@ -23,6 +23,9 @@ export class InfoPage {
         this.partenaireVisible = false;
   }
 
+  openMap() {
+    this.navCtrl.push(MapPage)
+  }
   ionSelect(){
     if(this.selection == "info"){
       this.infosVisible = true
