@@ -40,21 +40,6 @@
     <div *ngIf="infosVisible">
       <ion-list text-wrap>
           <ion-list-header color="header">
-            Accès
-          </ion-list-header>
-          <ion-item>
-            <ion-icon name="man" item-start></ion-icon>
-                Interdit aux moins de 18 ans
-          </ion-item>
-          <ion-item>
-            <ion-icon name="bowtie" item-start></ion-icon>
-                Tenue de soirée obligatoire
-          </ion-item>
-          <ion-item>
-          <ion-icon name="beer" item-start></ion-icon>
-                Etat convenable exigé
-          </ion-item>
-          <ion-list-header color="header">
             Adresse
           </ion-list-header>
           <ion-item>
@@ -67,31 +52,17 @@
           </ion-list-header>
           <ion-item>
             <ion-icon name="calendar" item-start></ion-icon>
-                2 Juin 2018 - 20h
-          </ion-item>
-          <ion-list-header color="header">
-            Entrée du Gala
-          </ion-list-header>
-          <ion-item>
-                Ouverture à 20h
-          </ion-item>
-          <ion-item class="small">
-                Fermeture temporaire de 23h30 à 00h15
-          </ion-item>
-          <ion-item>
-                Fermeture de l'entrée à 1h30
-          </ion-item>
-          <ion-item>
-                Baisse du niveau sonore à 4h
+                17 Novembre 2018 - 20h
           </ion-item>
           <ion-list-header color="header">
             Nous contacter
           </ion-list-header>
-          <ion-item>
+          <ion-item (click)="mailTo('bde@utt.fr')">
             <ion-icon name="mail" item-start></ion-icon>
-                gala@utt.fr
+            bde@utt.fr
           </ion-item>
-          <ion-item>
+          
+          <ion-item (click)="mailTo('ung@utt.fr')">
             <ion-icon name="settings" item-start></ion-icon>
                 Problèmes techniques : ung@utt.fr
           </ion-item>

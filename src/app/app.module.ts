@@ -10,6 +10,7 @@ import { TicketsPage } from '../pages/tickets/tickets'
 import { BuyPage } from '../pages/buy/buy'
 import { InfoPage } from '../pages/info/info'
 import { MapPage } from '../pages/map/map'
+import { CustomMapPage } from '../pages/custom-map/custom-map'
 import { TicketDetailsPage } from '../pages/ticket-details/ticket-details'
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -30,6 +31,7 @@ import { TicketModal } from '../pages/ticket-modal/ticket-modal'
     InfoPage,
     TicketDetailsPage,
     MapPage,
+    CustomMapPage,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,7 @@ import { TicketModal } from '../pages/ticket-modal/ticket-modal'
     InfoPage,
     TicketDetailsPage,
     MapPage,
+    CustomMapPage,
   ],
   providers: [
     StatusBar,

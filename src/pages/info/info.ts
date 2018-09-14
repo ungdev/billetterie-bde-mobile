@@ -56,4 +56,9 @@ export class InfoPage {
   openLink(link) {
     this.iab.create(link, '_system', {});
   }
+
+  mailTo(email) {
+    window.open(`mailto:${email}`, '_system');
+ }
+ 
 }

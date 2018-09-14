@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 import { TicketsPage } from '../tickets/tickets'
-import { BuyPage } from '../buy/buy'
+import { CustomMapPage } from '../custom-map/custom-map'
 import { HomePage } from '../home/home'
 import { InfoPage } from '../info/info'
 
@@ -14,7 +14,7 @@ export class TabsPage {
   tab1Root = HomePage
   tab2Root = InfoPage
   tab3Root = TicketsPage
-  tab4Root = BuyPage
+  tab4Root = CustomMapPage
   loaded: boolean = false;
   tabIndex: number  = 0;
 

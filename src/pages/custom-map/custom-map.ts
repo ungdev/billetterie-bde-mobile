@@ -4,9 +4,9 @@ import L from 'leaflet'
 import { ENV } from '../../config/env'
 
 @Component({
-  templateUrl: 'map.html'
+  templateUrl: 'custom-map.html'
 })
-export class MapPage {
+export class CustomMapPage {
 
   constructor(
         private navCtrl: NavController,
