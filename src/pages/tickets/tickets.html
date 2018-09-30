@@ -6,7 +6,7 @@
       </ion-title>
       <ion-buttons end>
       <button (click)="addClicked()" ion-button icon-only>
-        <ion-icon class="addIcon" name="add-circle" color="white"></ion-icon>
+        <ion-icon name="add-circle" color="white"></ion-icon>
       </button>
     </ion-buttons>
     </ion-navbar>
@@ -16,28 +16,27 @@
   <ion-list *ngIf="tickets.length > 0">
       <ion-card *ngFor="let ticket of tickets" >
           <ion-item>
-            <h2>{{ ticket.name }} {{ ticket.firstName }}</h2>
-            <h3>{{ ticket.mail }}</h3>
+            {{ ticket.name }} {{ ticket.firstName }} <br>
+            {{ ticket.mail }}
           </ion-item>
         
           <ion-card-content>
-            <p>Place pour la R2D</p>
+            Place pour la R2D
             <div *ngFor="let option of ticket.options">
-                <p> - {{option.optionID}} : {{option.quantity}}</p> 
+                - {{option.optionID}} : {{option.quantity}}
             </div>
           </ion-card-content>
         
           <ion-row>
             <ion-col>
-              <button ion-button icon-start clear small (click)="ticketDetails(ticket)">
+              <button ion-button icon-start clear (click)="ticketDetails(ticket)">
                 <ion-icon name="eye"></ion-icon>
                 <div>voir</div>
               </button>
             </ion-col>
-            <ion-col>
-              <button ion-button icon-start clear small color="danger" (click)="deleteTicket(ticket)">
+            <ion-col style="text-align: right">
+              <button ion-button icon-start clear color="danger" (click)="deleteTicket(ticket)">
                 <ion-icon name="trash"></ion-icon>
-                <div>supprimer</div>
               </button>
             </ion-col>
           </ion-row>

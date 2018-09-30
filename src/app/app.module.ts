@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { MyApp } from './app.component';
+import { HTTP } from '@ionic-native/http'
 
 import { HomePage } from '../pages/home/home'
 import { TabsPage } from '../pages/tabs/tabs'
@@ -12,12 +13,14 @@ import { InfoPage } from '../pages/info/info'
 import { MapPage } from '../pages/map/map'
 import { CustomMapPage } from '../pages/custom-map/custom-map'
 import { TicketDetailsPage } from '../pages/ticket-details/ticket-details'
+import { CountDownComponent } from '../pages/final_countdown/countdown';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { TicketModal } from '../pages/ticket-modal/ticket-modal'
+import { EventDetailsPage } from '../pages/info/event-details/event_details'
 
 
 @NgModule({
@@ -30,8 +33,10 @@ import { TicketModal } from '../pages/ticket-modal/ticket-modal'
     TicketModal,
     InfoPage,
     TicketDetailsPage,
+    EventDetailsPage,
     MapPage,
     CustomMapPage,
+    CountDownComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,7 @@ import { TicketModal } from '../pages/ticket-modal/ticket-modal'
     BuyPage,
     TicketModal,
     InfoPage,
+    EventDetailsPage,
     TicketDetailsPage,
     MapPage,
     CustomMapPage,
@@ -54,6 +60,7 @@ import { TicketModal } from '../pages/ticket-modal/ticket-modal'
   providers: [
     StatusBar,
     SplashScreen,
+    HTTP,
     InAppBrowser,
     NativePageTransitions,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

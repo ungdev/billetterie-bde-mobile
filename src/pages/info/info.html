@@ -36,7 +36,10 @@
   </ion-segment>
 </ion-header>
 
-<ion-content padding  (swipe)="swipeEvent($event)">
+<ion-content padding (swipe)="swipeEvent($event)">
+    <ion-refresher (ionRefresh)="doRefresh($event)" class="refresh">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <div *ngIf="infosVisible">
       <ion-list text-wrap>
           <ion-list-header color="header">
@@ -68,55 +71,27 @@
           </ion-item>
       </ion-list>
     </div>
-    <div *ngIf="programmeVisible"></div>
+    <div *ngIf="programmeVisible">
+      <ion-buttons *ngIf="!isEmpty(events)" class="event-buttons">
+        <button *ngFor="let event of events" class="event-button" (click)="goToDetails(event)" no-padding>
+         <ion-card class="event-card">
+           <img class="defaultImage" src="assets/imgs/default.png"/>
+           <img class="event-image" src={{event.image}}/>
+           <div class="event-title">{{event.name}}</div>
+           <div class="event-subtitle">{{event.place}}</div>
+           <div class="event-start">{{event.start_at}}</div>
+           <ion-icon class="info-circle2" name="ios-information-circle-outline" [isActive]="false"></ion-icon>
+           <ion-icon class="info-circle" name="information-circle" [isActive]="true"></ion-icon>
+         </ion-card>
+       </button>
+     </ion-buttons>
+    </div>
     <div *ngIf="partenaireVisible">
-      <ion-buttons class="buttons">
-          <button (click)="openLink('https://bde.utt.fr');" no-padding>
-              <img src="assets/imgs/partenaires/bde.jpg"/>
-          </button>
-          <button (click)="uttLink();" no-padding>
-              <img src="assets/imgs/partenaires/utt.jpg"/>
-          </button>
-          <button (click)="k2aLink();" no-padding>
-              <img src="assets/imgs/partenaires/k2a.png"/>
-          </button>
-          <button (click)="amnestyLink();" no-padding>
-              <img src="assets/imgs/partenaires/amnesty.png"/>
-          </button>
-          <button (click)="nrjLink();" no-padding>
-              <img src="assets/imgs/partenaires/nrj.jpg"/>
-          </button>
-          <button (click)="teklissLink();" no-padding>
-              <img src="assets/imgs/partenaires/tekliss.jpg"/>
-          </button>
-          <button (click)="socgeneraleLink();" no-padding>
-              <img src="assets/imgs/partenaires/socgenerale.png"/>
-          </button>
-          <button (click)="premautoLink();" no-padding>
-              <img src="assets/imgs/partenaires/premauto.jpg"/>
-          </button>
-          <button (click)="festilightLink();" no-padding>
-              <img src="assets/imgs/partenaires/festilight.png"/>
-          </button>
-          <button (click)="socotecLink();" no-padding>
-              <img src="assets/imgs/partenaires/socotec.jpg"/>
-          </button>
-          <button (click)="mgelLink();" no-padding>
-              <img src="assets/imgs/partenaires/mgel.jpg"/>
-          </button>
-            <button (click)="allysonLink();" no-padding>
-              <img src="assets/imgs/partenaires/allyson.png"/>
-          </button>
-          <button (click)="laserLink();" no-padding>
-              <img src="assets/imgs/partenaires/lasergame.jpg"/>
-          </button>
-          <button (click)="estLink();" no-padding>
-              <img src="assets/imgs/partenaires/est.jpg"/>
-          </button>
-          <button (click)="mercureLink();" no-padding>
-              <img src="assets/imgs/partenaires/mercure.jpeg"/>
-          </button>
-        </ion-buttons>
+      <ion-buttons *ngIf="!isEmpty(partners)" class="partners-buttons">
+        <button *ngFor="let partner of partners" (click)="openLink(partner.link);" class="partner-button" no-padding>
+            <img src={{partner.image}}/>
+        </button>
+      </ion-buttons>
     </div>
   </ion-content>
   

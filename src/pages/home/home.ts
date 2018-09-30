@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core'
+import { NavController } from 'ionic-angular'
+import { CountDownComponent } from '../final_countdown/countdown'
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  @ViewChild(CountDownComponent) countdown: CountDownComponent
 
   constructor(public navCtrl: NavController) {
 

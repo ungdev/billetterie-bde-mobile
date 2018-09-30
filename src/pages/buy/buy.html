@@ -14,14 +14,14 @@
   <ion-list>
     <ion-card *ngFor="let ticket of tickets" >
         <ion-item>
-          <h2>{{ ticket.name }} {{ ticket.firstName }}</h2>
-          <h3>{{ ticket.mail }}</h3>
+          {{ ticket.name }} {{ ticket.firstName }}<br>
+          {{ ticket.mail }}
         </ion-item>
       
         <ion-card-content>
-          <p>Place pour la R2D</p>
+          Place pour la R2D
           <div *ngFor="let option of ticket.options">
-              <p> - {{option.optionID}} : {{option.quantity}}</p> 
+              - {{option.optionID}} : {{option.quantity}}
           </div>
         </ion-card-content>
       
@@ -32,7 +32,7 @@
               <div>edit</div>
             </button>
           </ion-col>
-          <ion-col>
+          <ion-col style="text-align: right">
             <button ion-button icon-start clear small color="danger" (click)="deleteTicket(ticket)">
               <ion-icon name="trash"></ion-icon>
               <div>supprimer</div>

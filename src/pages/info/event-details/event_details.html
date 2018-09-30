@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>
+      {{args.Title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="details">
+  <img class="img" src={{args.image}}/>
+  <div class="title">{{args.name}}</div>
+  <div class="start">Début à {{args.start_at}}</div>
+  <div class="end">Fin à {{args.end_at}}</div>
+  <div class="room">Lieu : {{args.place}}</div>
+  <ion-card class="card">
+    <ion-card-content class="text">
+      {{args.description}}
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

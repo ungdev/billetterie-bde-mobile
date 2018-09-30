@@ -1,9 +1,29 @@
-<ion-header (swipe)="swipeEvent($event)">
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding (swipe)="swipeEvent($event)">
-  <h2>R2D</h2>
-</ion-content>
+  
+    <ion-grid>
+      <ion-row>
+          <ion-col text-center>
+            <img src="assets/imgs/logo_home.png" align="middle">
+          </ion-col>
+        </ion-row>	
+      <ion-row row-8>
+          <ion-col>
+            <countdown #countdown></countdown>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+  
+      </ion-row>
+      <ion-row>
+        <ion-card>
+          <ion-card-content class="Card">La remise des diplômes de l'Université de Technologie de Troyes ouvre ses portes le 17 Novembre 2018.</ion-card-content>
+        </ion-card>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="primary" (click) = "goToBilleterie();" round full>Prendre sa place</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  

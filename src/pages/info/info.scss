@@ -1,19 +1,93 @@
 page-info {
 	
-	.big{
-		font-size: 16px;
-		color: #fff;
-		background-color: #242424;
-	}
-	.small{
-		font-size: 16px
-	}
-	.buttons{
-		display: block;
-    	margin: 0 auto;
-    	max-width: 300px;
-    	width: 100%;
-	}
+	.partners-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .partner-button {
+    max-width: 300px;
+    max-height: 300px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    line-height: 0;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 
+  .event-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .event-button {
+    margin-bottom: 10px;
+  }
+  
+  .event-card {
+    margin: 0 0 0 0;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+  }
+
+  .event-image {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .event-title {
+    position: absolute;
+    top: 10%;
+    font-size: 4.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .event-subtitle {
+    position: absolute;
+    top: 50%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .event-start {
+    position: absolute;
+    top: 70%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .info-circle {
+    position: absolute;
+    top: 80%;
+    left: 90%;
+    font-size: 3.0em;
+    //width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .info-circle2 {
+    position: absolute;
+    top: 80%;
+    left: 90%;
+    font-size: 3.0em;
+    //width: 100%;
+    font-weight: bold;
+    color: #000;
+  }
 }
