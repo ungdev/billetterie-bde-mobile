@@ -87,5 +87,6 @@
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
     <plugin name="cordova-plugin-advanced-http" spec="^2.0.1" />
-    <engine name="ios" spec="4.5.5" />
+    <plugin name="onesignal-cordova-plugin" spec="^2.4.4" />
+    <engine name="ios" spec="~4.5.5" />
 </widget>

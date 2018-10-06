@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { MyApp } from './app.component';
 import { HTTP } from '@ionic-native/http'
+import { OneSignal } from '@ionic-native/onesignal'
 
 import { HomePage } from '../pages/home/home'
 import { TabsPage } from '../pages/tabs/tabs'
@@ -62,6 +63,7 @@ import { EventDetailsPage } from '../pages/info/event-details/event_details'
     SplashScreen,
     HTTP,
     InAppBrowser,
+    OneSignal,
     NativePageTransitions,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
