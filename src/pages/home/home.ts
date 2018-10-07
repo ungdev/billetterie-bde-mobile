@@ -22,4 +22,8 @@ export class HomePage {
       this.navCtrl.parent.select(3)
     }
   }
+
+  goToBilletterie() {
+    this.navCtrl.parent.select(2)
+  }
 }
