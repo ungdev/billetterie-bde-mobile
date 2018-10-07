@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar color="navbar">
+        <ion-title>
+          Informations de l'acheteur
+        </ion-title>
+        <ion-buttons end>
+            <button (click)="close(true)" ion-button icon-only color="danger">
+              annuler
+            </button>
+        </ion-buttons>
+      </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="name" type="text" value={{name}} placeholder="Nom"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="firstName" type="text" value={{firstName}} placeholder="Prénom"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="mail" type="text" value={{mail}} placeholder="Mail"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button color="secondary" (click) = "validate()" round full>Valider les informations de l'acheteur</button>
+  </ion-content>
+  

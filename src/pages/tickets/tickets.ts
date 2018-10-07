@@ -37,6 +37,7 @@ export class TicketsPage {
     }
   }
 
+  
   isEmpty(obj){
     if(typeof obj === 'object' && obj !== null){
       if(Object.keys(obj).length === 0)
@@ -54,7 +55,7 @@ export class TicketsPage {
   }
 
   ticketDetails(ticket){
-    this.navCtrl.push(TicketDetailsPage, {ticket:ticket, this:this});
+    this.navCtrl.push(TicketDetailsPage, {ticket: ticket, this: this});
   }
 
   deleteTicket(ticket) {
@@ -69,7 +70,6 @@ export class TicketsPage {
         {
           text: 'Oui',
           handler: () => {
-            console.log('coucou')
             this.storage.removeTicket(ticket)
             this.tickets = this.storage.getTickets()
           }

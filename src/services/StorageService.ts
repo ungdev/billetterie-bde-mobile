@@ -22,7 +22,6 @@ export class StorageService {
       let index = tickets.findIndex(e => {
         return ticket.id === e.id
       })
-      console.log(index)
       tickets.splice(index, 1)
       this.saveTickets(tickets)
     }
@@ -46,7 +45,6 @@ export class StorageService {
       let index = tickets.findIndex(e => {
         return ticket.id === e.id
       })
-      console.log(index)
       tickets.splice(index, 1)
       this.saveCartTickets(tickets)
     }

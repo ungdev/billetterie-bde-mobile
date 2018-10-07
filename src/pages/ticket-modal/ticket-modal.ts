@@ -15,19 +15,26 @@ export class TicketModal {
   firstName: string
   mail: string
   don: number
+  isNew: boolean
   
 
   constructor(
-      private navCtrl: NavController,
-      private alertCtrl: AlertController,
-      private params: NavParams,
+      params: NavParams,
       private viewCtrl: ViewController,
       private toastCtrl: ToastController,
       private storage: StorageService,
       ) {
         this.ticket = params.get('ticket')
+        this.isNew = false
         if(!this.ticket) {
-          this.ticket = {name: '', firstName: '', mail: '', options: []}
+          this.isNew = true
+          this.ticket = {
+            id: Math.floor((Math.random() * 1000000000)),
+            name: '',
+            firstName: '',
+            mail: '',
+            options: []
+          }
         }
         let donOption = this.ticket.options.find(e => e.optionID === 'don')
         if(donOption) this.don = donOption.quantity
@@ -67,13 +74,17 @@ export class TicketModal {
       return
     }
     this.ticket = {
-      id: Math.floor((Math.random() * 1000000000)),
+      id: this.ticket.id,
       name: this.name,
       firstName: this.firstName,
       mail: this.mail,
       options:[]
     }
     if(this.don) this.ticket.options.push({optionID: 'don', quantity: this.don})
+    if(!this.isNew) {
+      this.storage.removeCartTicket(this.ticket)
+      console.log('removed ticket from cart :', this.ticket)
+    }
     this.storage.addCartTicket(this.ticket)
     console.log('added ticket to cart :', this.ticket)
     this.close()
