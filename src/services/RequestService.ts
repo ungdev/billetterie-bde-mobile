@@ -11,9 +11,9 @@ export class RequestService {
     }
 
     post(endpoint: string, data: object) {
-      return this.api.post(endpoint, { params: data })
+      return this.api.post(endpoint, data)
     }
-    get(endpoint: string, data: object) {
+    get(endpoint: string) {
       return this.api.get(endpoint)
     }
 

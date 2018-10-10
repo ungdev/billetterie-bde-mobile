@@ -5,7 +5,7 @@ import { TicketDetailsPage } from '../ticket-details/ticket-details'
 
 import { RequestService } from '../../services/RequestService'
 import { StorageService } from '../../services/StorageService'
-import { BuyPage } from '../buy/buy'
+import { BuyerModal } from '../buyer-modal/buyer-modal'
 
 @Component({
   selector: 'page-ticket',
@@ -47,7 +47,7 @@ export class TicketsPage {
   }
 
   goToBilleterie(){
-    let modal = this.modalCtrl.create(BuyPage)
+    let modal = this.modalCtrl.create(BuyerModal)
     modal.onDidDismiss(() => {
       this.tickets = this.storage.getTickets()
     })

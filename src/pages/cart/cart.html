@@ -18,11 +18,19 @@
           {{ ticket.mail }}
         </ion-item>
       
-        <ion-card-content>
-          Place pour la R2D
-          <div *ngFor="let option of ticket.options">
-              - {{option.optionID}} : {{option.quantity}}
+        <ion-card-content class="container">
+          <div>
+            {{ticket.price.name}}
+            <div *ngFor="let option of getPublicOptions(ticket)">
+              <div *ngIf="getOptionValue(ticket, option) === true">
+                - {{option.name}}
+              </div>
+              <div *ngIf="getOptionValue(ticket, option) !== true">
+                - {{option.name}} : {{getOptionValue(ticket, option)}}
+              </div>
+            </div>
           </div>
+          <div class="price">{{getTicketPrice(ticket)/100}}€</div>
         </ion-card-content>
       
         <ion-row>
@@ -47,5 +55,5 @@
 
 
 <ion-footer>
-  <button ion-button color="primary" (click) = "paye()" round full>Payer mon panier</button>
+  <button ion-button color="primary" (click) = "paye()" round full>Payer mon panier ({{total}}€)</button>
 </ion-footer>

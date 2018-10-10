@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar color="navbar">
+        <ion-title>
+          Type de ticket
+        </ion-title>
+        <ion-buttons end>
+            <button (click)="cancel()" ion-button icon-only color="danger">
+              annuler
+            </button>
+        </ion-buttons>
+      </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-buttons *ngIf="!isEmpty(prices)" class="prices-buttons">
+      <button *ngFor="let price of prices" class="price-button" (click)="select(price)" no-padding>
+       <ion-card class="price-card">
+          <ion-item>
+            <h2><ion-icon name="cart" class="icon"></ion-icon>   {{ price.name }}</h2>
+          </ion-item>
+          <ion-card-content class="card-content">
+            <p>{{ price.description }}</p>
+            <p class="price"> {{ getPrice(price) }}€ </p>
+          </ion-card-content>
+       </ion-card>
+     </button>
+   </ion-buttons>
+  </ion-content>
+  

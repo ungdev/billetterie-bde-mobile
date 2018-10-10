@@ -9,7 +9,7 @@ import { OneSignal } from '@ionic-native/onesignal'
 import { HomePage } from '../pages/home/home'
 import { TabsPage } from '../pages/tabs/tabs'
 import { TicketsPage } from '../pages/tickets/tickets'
-import { BuyPage } from '../pages/buy/buy'
+import { CartPage } from '../pages/cart/cart'
 import { InfoPage } from '../pages/info/info'
 import { MapPage } from '../pages/map/map'
 import { CustomMapPage } from '../pages/custom-map/custom-map'
@@ -21,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 import { NativePageTransitions } from '@ionic-native/native-page-transitions'
 import { TicketModal } from '../pages/ticket-modal/ticket-modal'
+import { TicketTypeModal } from '../pages/ticket-type-modal/ticket-type-modal'
 import { BuyerModal } from '../pages/buyer-modal/buyer-modal'
 import { EventDetailsPage } from '../pages/info/event-details/event_details'
 
@@ -29,10 +30,11 @@ import { EventDetailsPage } from '../pages/info/event-details/event_details'
   declarations: [
     MyApp,
     TicketsPage,
-    BuyPage,
+    CartPage,
     HomePage,
     TabsPage,
     TicketModal,
+    TicketTypeModal,
     BuyerModal,
     InfoPage,
     TicketDetailsPage,
@@ -52,8 +54,9 @@ import { EventDetailsPage } from '../pages/info/event-details/event_details'
     TicketsPage,
     HomePage,
     TabsPage,
-    BuyPage,
+    CartPage,
     TicketModal,
+    TicketTypeModal,
     BuyerModal,
     InfoPage,
     EventDetailsPage,

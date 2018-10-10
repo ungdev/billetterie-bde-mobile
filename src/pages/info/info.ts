@@ -62,11 +62,11 @@ export class InfoPage {
   }
 
   contactServeur() {
-    this.request.get('events', {})
+    this.request.get('events')
     .then(res => this.events = res.data.map(event => {return {...event, start_at:  moment(event.start_at*1000).format('HH:mm')}})
     )
     .catch(e => console.log(e))
-    this.request.get('partners', {})
+    this.request.get('partners')
     .then(res => this.partners = res.data)
     .catch(e => console.log(e))
   }

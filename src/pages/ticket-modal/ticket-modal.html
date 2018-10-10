@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar color="navbar">
         <ion-title>
-          Ticket
+          Informations sur le propriétaire
         </ion-title>
         <ion-buttons end>
-            <button (click)="close()" ion-button icon-only color="danger">
-              annuler
+            <button (click)="cancel()" ion-button icon-only color="danger">
+              retour
             </button>
         </ion-buttons>
       </ion-navbar>
@@ -14,18 +14,26 @@
   <ion-content padding>
     <ion-list>
       <ion-item>
-        <ion-input [(ngModel)]="name" type="text" value={{ticket.name}} placeholder="Nom"></ion-input>
+        <ion-label>Nom</ion-label>
+        <ion-input [(ngModel)]="name" type="text" placeholder={{ticket.name}}></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="firstName" type="text" value={{ticket.firstName}} placeholder="Prénom"></ion-input>
+          <ion-label>Prénom</ion-label>
+        <ion-input [(ngModel)]="firstName" type="text" placeholder={{ticket.firstName}}></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="mail" type="text" value={{ticket.mail}} placeholder="Mail"></ion-input>
+          <ion-label>Mail</ion-label>
+        <ion-input [(ngModel)]="mail" type="text" placeholder={{ticket.mail}}></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-input [(ngModel)]="don" type="number" min=0 value={{don}} placeholder="Don de promo (optionnel)"></ion-input>
+      <ion-item *ngFor="let option of radioOptions">
+        <ion-label>{{ option.name }} ({{ option.price/100 }}€)</ion-label>
+        <ion-radio value={{option.id}} checked={{isChecked[option.id]}} color="secondary" (ionSelect)="onChange(option.id)"></ion-radio>
+      </ion-item>
+      <ion-item *ngFor="let option of ticket.options" text-wrap>
+        <ion-label>{{ option.name }} ({{ option.price/100 }}€)</ion-label>
+        <ion-input [(ngModel)]="optionResult[option.id]" type="number" class="option-number" (change)="calculateTotal()"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button color="secondary" (click) = "validate()" round full>Ajouter au panier</button>
+    <button ion-button color="secondary" (click) = "validate()" round full>Ajouter au panier ({{total}}€)</button>
   </ion-content>
   

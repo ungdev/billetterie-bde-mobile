@@ -1,0 +1,45 @@
+page-info {
+  .price-button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .price-card {
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    background-color: color($colors, primary);
+
+
+    ion-button {
+      color: color($colors, light);
+    }
+  }
+  .price-card > * {
+    background-color: color($colors, primary);
+  }
+
+  .card-content > p {
+    color: color($colors, light);
+  }
+
+  .label > h2 {
+    color: color($colors, light);
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .icon {
+    margin-right: 20px;
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .price {
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+}

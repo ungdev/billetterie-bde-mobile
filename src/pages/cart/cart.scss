@@ -1,0 +1,12 @@
+cart {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .price {
+    font-size: 30px;
+    font-weight: bold;
+    color: color($colors, secondary)
+  }
+}

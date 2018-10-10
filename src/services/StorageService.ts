@@ -29,6 +29,24 @@ export class StorageService {
       localStorage.setItem('tickets', JSON.stringify(tickets))
     }
 
+    setPrices(prices) {
+      localStorage.setItem('prices', JSON.stringify(prices))
+    }
+
+    getPrices() {
+      let prices = JSON.parse(localStorage.getItem('prices'))
+      return prices ? prices : []
+    }
+
+    setBuyer(buyer) {
+      localStorage.setItem('buyer', JSON.stringify(buyer))
+    }
+
+    getBuyer() {
+      let buyer = JSON.parse(localStorage.getItem('buyer'))
+      return buyer ? buyer : { name: '', firstName: '', mail: '' }
+    }
+
     getCartTickets() {
       let tickets = JSON.parse(localStorage.getItem('cartTickets'))
       return tickets ? tickets : []
