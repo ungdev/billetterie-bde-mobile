@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NavController, ModalController, ViewController, ToastController } from 'ionic-angular'
+import { NavController, ModalController, ViewController, ToastController, AlertController } from 'ionic-angular'
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 
 import { RequestService } from '../../services/RequestService'
@@ -27,6 +27,7 @@ export class CartPage {
       private viewCtrl: ViewController,
       private toastCtrl: ToastController,
       private request: RequestService,
+      private alertCtrl: AlertController,
       private storage: StorageService,
       ) {
         this.tickets = storage.getCartTickets()
@@ -47,17 +48,8 @@ export class CartPage {
   close() {
     this.viewCtrl.dismiss()
   }
-
-  paye() {
-    console.log('pay', this.tickets)
-    if(this.tickets.length === 0){
-      console.log('NO TICKETS')
-      this.toastCtrl.create({
-        message: 'Vous n\'avez pas ajouté de billet',
-        duration: 3000
-      }).present()
-      return
-    }
+  
+  sendTicket(don = 0){
     let buyer = this.storage.getBuyer()
     let order = {
       buyer: {
@@ -66,7 +58,7 @@ export class CartPage {
         mail: buyer.mail,
       },
       items: [],
-      don: 5500
+      don: don * 100
     }
 
     console.log('TICKETS', this.tickets)
@@ -122,6 +114,54 @@ export class CartPage {
       this.storage.clearCartTickets()
     }
     this.close()*/
+  }
+
+  paye() {
+    console.log('pay', this.tickets)
+    if(this.tickets.length === 0){
+      console.log('NO TICKETS')
+      this.toastCtrl.create({
+        message: 'Vous n\'avez pas ajouté de billet',
+        duration: 3000
+      }).present()
+      return
+    }
+    let alert = this.alertCtrl.create({
+      title: 'Voulez vous faire un don de promo ?',
+      message: 'Cela permet de financer le cadeau de la promotion sortante',
+      inputs: [
+        {
+          name: 'don',
+          type: 'number',
+          placeholder: 'Votre don ici'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Non',
+          handler: () => {
+            this.sendTicket()
+          }
+        },
+        {
+          text: 'Oui',
+          handler: data => {
+            console.log(data)
+            if(data.don >= 10){
+              this.sendTicket(data.don)
+              alert.dismiss()
+            }
+            else {
+              this.toastCtrl.create({
+                message: 'Le montant minimum pour un don est de 10€',
+                duration: 3000
+              }).present()
+            }
+          }
+        }
+      ]
+    })
+    alert.present()
   }
   editTicket(ticket){
     let modal = this.modalCtrl.create(TicketModal, { ticket })
