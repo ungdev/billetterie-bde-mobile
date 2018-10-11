@@ -60,36 +60,68 @@ export class CartPage {
     }
     let buyer = this.storage.getBuyer()
     let order = {
-      buyer,
-      items: []
+      buyer: {
+        name: buyer.name,
+        surname: buyer.firstName,
+        mail: buyer.mail,
+      },
+      items: [],
+      don: 5500
     }
+
+    console.log('TICKETS', this.tickets)
     this.tickets.forEach(ticket => {
       order.items.push({
         name: ticket.name,
         surname: ticket.firstName,
         mail: ticket.mail,
-        price_id: this.prices[0].id, //????
-        options: ticket.options.map(option => { return { id: option.optionID, qty: option.quantity } }),
-        fields: ticket.options.map(option => { return { id: option.optionID, value: option.optionID } })
+        price_id: ticket.price.id,
+       /* options: ticket.options
+          .map(option => {
+            const field = ticket.fields.find(f => f.id === option.id)
+            return { id: option.id, qty: field ? field.value : 0 }
+          })
+          .filter(option => option.qty != 0),
+        fields: [],*/
+        "options": [{
+          "id": 2,
+          "qty": 0
+        }],
+        "fields": []
       })
     })
     console.log('order', order)
     this.request.post('order/create', order)
       .then(res => {
         console.log(res)
-        res.data.order_id
-        res.data.amount
-        res.data.paiement_url
+        let browser = this.iab.create(res.data.paiment_url,
+          '_blank',
+          {
+              location:'no',
+              hardwareback: 'no',
+              footer:'no',
+              toolbar: 'no',
+
+          })
+          browser.on("loadstart")
+          .subscribe(data => {
+              // check if data.url contains authorization_code
+              const found = data.url.includes('pp-billetterie.apps.uttnetgroup.fr')
+              if(found) {
+                browser.close()
+              }
+          })
       })
       .catch(e => console.log(e))
-    if(true) {  //etupay validation TODO
+      return //temp
+    /*if(true) {  //etupay validation TODO
       this.tickets.forEach(ticket => {
         ticket.qrcode = "1234"
         this.storage.addTicket(ticket)
       })
       this.storage.clearCartTickets()
     }
-    this.close()
+    this.close()*/
   }
   editTicket(ticket){
     let modal = this.modalCtrl.create(TicketModal, { ticket })

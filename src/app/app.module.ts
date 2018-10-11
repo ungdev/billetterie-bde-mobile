@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser'
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
 import { NgxQRCodeModule } from 'ngx-qrcode2'
 import { MyApp } from './app.component'
-import { HTTP } from '@ionic-native/http'
 import { OneSignal } from '@ionic-native/onesignal'
 
 import { HomePage } from '../pages/home/home'
@@ -67,7 +66,6 @@ import { EventDetailsPage } from '../pages/info/event-details/event_details'
   providers: [
     StatusBar,
     SplashScreen,
-    HTTP,
     InAppBrowser,
     OneSignal,
     NativePageTransitions,
