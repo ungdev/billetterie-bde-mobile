@@ -30,6 +30,7 @@ plugins/ios.json
 www/
 $RECYCLE.BIN/
 src/config/env.ts
+billetterie.keystore
 
 .DS_Store
 Thumbs.db
