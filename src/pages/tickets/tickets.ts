@@ -39,6 +39,7 @@ export class TicketsPage {
       let unpaidTicket = this.tickets.find(ticket => !ticket.isPaid)
       if(!unpaidTicket) {
         clearInterval(this.interval)
+        this.interval = null
         return
       }
       this.checkIfPaid()
