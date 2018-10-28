@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NavController } from 'ionic-angular'
 import { InAppBrowser } from '@ionic-native/in-app-browser'
-import { MapPage } from '../map/map'
+//import { MapPage } from '../map/map'
 import { RequestService } from '../../services/RequestService'
 import moment from 'moment'
 import { EventDetailsPage } from './event-details/event_details'
@@ -72,7 +72,8 @@ export class InfoPage {
   }
 
   openMap() {
-    this.navCtrl.push(MapPage)
+    //this.navCtrl.push(MapPage)
+    this.navCtrl.parent.select(3)
   }
   ionSelect(){
     if(this.selection == "info"){
@@ -94,10 +95,10 @@ export class InfoPage {
 
   swipeEvent(event){
     if(event.direction == 2){
-      this.navCtrl.parent.select(2);
+      this.navCtrl.parent.select(2)
     }
     if(event.direction == 4){
-      this.navCtrl.parent.select(0);
+      this.navCtrl.parent.select(0)
     }
   }
 

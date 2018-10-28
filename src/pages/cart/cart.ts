@@ -49,7 +49,7 @@ export class CartPage {
     this.viewCtrl.dismiss()
   }
   
-  sendTicket(don = 0){
+  sendTicket(don = 0) {
     let buyer = this.storage.getBuyer()
     let order = {
       buyer: {
@@ -68,18 +68,12 @@ export class CartPage {
         surname: ticket.firstName,
         mail: ticket.mail,
         price_id: ticket.price.id,
-       /* options: ticket.options
+        options: ticket.options
           .map(option => {
             const field = ticket.fields.find(f => f.id === option.id)
             return { id: option.id, qty: field ? field.value : 0 }
           })
           .filter(option => option.qty != 0),
-        fields: [],*/
-        "options": [{
-          "id": 2,
-          "qty": 0
-        }],
-        "fields": []
       })
     })
     console.log('order', order)
@@ -97,23 +91,61 @@ export class CartPage {
           })
           browser.on("loadstart")
           .subscribe(data => {
-              // check if data.url contains authorization_code
-              const found = data.url.includes('pp-billetterie.apps.uttnetgroup.fr')
-              if(found) {
+              // check if data.url contains /order/XXX
+              const foundSuccess = data.url.includes('/order/success')
+              const foundCanceled = data.url.includes('/order/canceled')
+              const foundRefused = data.url.includes('/order/refused')
+              if (foundSuccess || foundCanceled || foundRefused) {
                 browser.close()
+              }
+              if (foundSuccess) {
+                this.toastCtrl.create({
+                  message: 'La transaction a été validée',
+                  duration: 3000
+                }).present()
+                this.tickets = order.items.map(ticket => {
+                  return { ...ticket, order_id: res.data.order_id, orderMail: order.buyer.mail }
+                })
+                this.request.get(`order/get?order_id=${res.data.order_id}&mail=${order.buyer.mail}`)
+                  .then(res2 => {
+                    console.log(res2)
+                    if (res2.data.order.state === 'paid') {
+                      this.tickets = this.tickets.map(ticket => {
+                        const receivedTicket = res2.data.billets.find(billet => billet.name === ticket.name && billet.surname === ticket.firstName)
+                        const qrcode = receivedTicket ? receivedTicket.qrcode : null
+                        ticket.options = ticket.options.map(option => {
+                          let qty = option.qty
+                          if(qty !== true && qty !== false) qty = parseInt(qty)
+                          return { ...option, qty }
+                        })
+                        return { ...ticket, qrcode, isPaid: true }
+                      })
+                      
+                    }
+                    this.tickets.forEach(ticket => {
+                      this.storage.addTicket(ticket)
+                    })
+                    this.storage.clearCartTickets()
+                    this.close()
+
+                  })
+                  .catch(e => console.log(e))
+              }
+              if (foundCanceled) {
+                this.toastCtrl.create({
+                  message: 'La transaction a été annulée',
+                  duration: 3000
+                }).present()
+              }
+              if (foundRefused) {
+                this.toastCtrl.create({
+                  message: 'La transaction a été refusée',
+                  duration: 3000
+                }).present()
               }
           })
       })
       .catch(e => console.log(e))
-      return //temp
-    /*if(true) {  //etupay validation TODO
-      this.tickets.forEach(ticket => {
-        ticket.qrcode = "1234"
-        this.storage.addTicket(ticket)
-      })
-      this.storage.clearCartTickets()
-    }
-    this.close()*/
   }
 
   paye() {
@@ -148,8 +180,7 @@ export class CartPage {
           handler: data => {
             console.log(data)
             if(data.don >= 10){
-              this.sendTicket(data.don)
-              alert.dismiss()
+              this.sendTicket(parseInt(data.don))
             }
             else {
               this.toastCtrl.create({

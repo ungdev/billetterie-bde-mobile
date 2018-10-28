@@ -23,13 +23,20 @@
           <ion-card-content>
             Place pour la R2D
             <div *ngFor="let option of ticket.options">
-                - {{option.optionID}} : {{option.quantity}}
+              <div *ngIf="option.qty === true || option.qty === false">
+                - {{ option.name }}
+              </div>
+              <div *ngIf="option.qty !== true && option.qty !== false">
+                - {{ option.name }} : {{ option.qty }}
+              </div>
             </div>
+            <ion-spinner *ngIf="!ticket.isPaid"></ion-spinner>
+            <div *ngIf="!ticket.isPaid">(En attente de validation de la billetterie ...)</div>
           </ion-card-content>
         
           <ion-row>
             <ion-col>
-              <button ion-button icon-start clear (click)="ticketDetails(ticket)">
+              <button *ngIf="ticket.isPaid" ion-button icon-start clear (click)="ticketDetails(ticket)">
                 <ion-icon name="eye"></ion-icon>
                 <div>voir</div>
               </button>

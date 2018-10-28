@@ -2,7 +2,7 @@
   <ion-navbar color="navbar">
       <ion-title>
         <ion-icon name="barcode"></ion-icon>
-        {{ ticket.firstName }} {{ ticket.name }}
+        {{ ticket.surname }} {{ ticket.name }}
       </ion-title>
     </ion-navbar>
 </ion-header>
@@ -15,6 +15,9 @@
 
   <ion-list>
     <ion-item style="text-align: center">{{ ticket.qrcode }}</ion-item>
-    <ion-item *ngFor="let option of ticket.options">{{ option.optionID }} : {{ option.quantity }}</ion-item>
+    <div *ngFor="let option of ticket.options">
+      <ion-item *ngIf="option.qty === true || option.qty === false">{{ option.name }}</ion-item>
+      <ion-item *ngIf="option.qty !== true && option.qty !== false">{{ option.name }} : {{ option.qty }}</ion-item>
+    </div>
   </ion-list>
 </ion-content>

@@ -14,7 +14,9 @@ import { BuyerModal } from '../buyer-modal/buyer-modal'
 })
 export class TicketsPage {
 
-  public tickets: any;
+  private tickets: any
+  private prices: any
+  private interval: any
 
 
   constructor(
@@ -26,6 +28,21 @@ export class TicketsPage {
       private modalCtrl: ModalController
       ) {
     this.tickets = storage.getTickets()
+    this.prices = storage.getPrices()
+    this.mapOptionNameToOption()
+    this.launchInterval()
+  }
+
+  launchInterval() {
+    if(this.interval) return
+    this.interval = setInterval(() => {
+      let unpaidTicket = this.tickets.find(ticket => !ticket.isPaid)
+      if(!unpaidTicket) {
+        clearInterval(this.interval)
+        return
+      }
+      this.checkIfPaid()
+    }, 5000)
   }
 
   swipeEvent(event){
@@ -36,6 +53,7 @@ export class TicketsPage {
       this.navCtrl.parent.select(1);
     }
   }
+  
 
   
   isEmpty(obj){
@@ -50,12 +68,26 @@ export class TicketsPage {
     let modal = this.modalCtrl.create(BuyerModal)
     modal.onDidDismiss(() => {
       this.tickets = this.storage.getTickets()
+      this.mapOptionNameToOption()
+      this.launchInterval()
     })
     modal.present()
   }
 
+  mapOptionNameToOption() {
+    if(!this.tickets) return
+    this.tickets = this.tickets.map(ticket => {
+      if(!ticket.options) ticket.options = []
+      ticket.options = ticket.options.map(option => {
+        const name = this.getOptionName(ticket.price_id, option.id)
+        return { ...option, name }
+      })
+      return ticket
+    })
+  }
+
   ticketDetails(ticket){
-    this.navCtrl.push(TicketDetailsPage, {ticket: ticket, this: this});
+    this.navCtrl.push(TicketDetailsPage, {ticket: ticket, this: this})
   }
 
   deleteTicket(ticket) {
@@ -72,6 +104,7 @@ export class TicketsPage {
           handler: () => {
             this.storage.removeTicket(ticket)
             this.tickets = this.storage.getTickets()
+            this.mapOptionNameToOption()
           }
         }
       ]
@@ -81,56 +114,64 @@ export class TicketsPage {
   addClicked(){
     this.showPrompt()
   }
- /* checkTicket(){
-    for(let ticket in this.tickets){
-      let encodedPath = encodeURI('https://api.gala.uttnetgroup.fr/ticket/code=' + this.tickets[ticket].qrcode + '&name=' + this.tickets[ticket].name);
-      this.http.get(encodedPath)
-          .timeout(10000)
-          .map(res => res.json()).subscribe(data => {
-            console.log(data.statusCode)
-              if(data.statusCode === 404){
-                this.presentAlert(data.statusCode)
-                this.tickets.splice(ticket, 1) 
-                this.storage.remove('tickets')
-                this.storage.set('tickets', this.tickets)
-              }
-          },
-          err => {
-              this.getDataFromMemory()
-          });
-    }
-  }*/
 
   presentAlert(code) {
     let alert = this.alertCtrl.create({
       title: 'Erreur',
       subTitle: 'Echec de la récupération du billet, code d\'erreur ' + code,
       buttons: ['ok']
-    });
-    alert.present();
+    })
+    alert.present()
   }
 
-  /*contactBilletterie(code, name){
-    let encodedPath = encodeURI('https://api.gala.uttnetgroup.fr/ticket/code=' + code + '&name=' + name);
-    this.http.get(encodedPath)
-        .timeout(10000)
-        .map(res => res.json()).subscribe(data => {
-          console.log(data.statusCode)
-            if(data.statusCode === 200){
-              this.tickets.push(data.body.data) 
-              this.storage.remove('tickets')
-              this.storage.set('tickets', this.tickets)
+  contactBilletterie(code, name){
+    this.request.get(`billets/get?code=${code}&name=${name}`)
+        .then(res => {
+            if(res.status === 200){
+              const t = res.data.data
+              const price = this.prices.find(price => price.name === t.price)
+              this.storage.addTicket({
+                name: t.name,
+                surname: t.surname,
+                mail: t.mail,
+                qrcode: t.qrcode,
+                price_id: price.id,
+                isPaid: true,
+                options: t.options
+              })
+              this.tickets = this.storage.getTickets()
+              this.mapOptionNameToOption()
             }
             else{
-              this.presentAlert(data.statusCode)
-              this.getDataFromMemory()
+              this.presentAlert(res.data.statusCode)
             }
-        },
-        err => {
-            this.presentAlert(524)
-            this.getDataFromMemory()
-        });
-  }*/
+        })
+        .catch(err => {
+          console.log(err.response)
+          this.presentAlert(err.response.status + ', erreur: ' + err.response.data.error)
+        })
+  }
+
+  getOptionName(price_id, optionId) {
+    return this.prices && this.prices[price_id] && this.prices[price_id].options ? this.prices[price_id].options.find(option => option.id === optionId).name : ''
+  }
+
+  checkIfPaid() {
+    this.tickets.filter(ticket => !ticket.isPaid).forEach((ticket, index) => {
+      this.request.get(`order/get?order_id=${ticket.order_id}&mail=${ticket.orderMail}`)
+        .then(res => {
+          if(res.data.order.state === 'paid') {
+            const qrcode = res.data.billets.find(billet => billet.name === ticket.name && billet.surname === ticket.surname).qrcode
+            ticket.isPaid = true
+            ticket.qrcode = qrcode
+            this.tickets[index] = ticket
+            this.storage.removeTicket(ticket)
+            this.storage.addTicket(ticket)
+          }
+        })
+        .catch(e => console.log(e))
+    })
+  }
 
   showPrompt() {
     let prompt = this.alertCtrl.create({
@@ -150,19 +191,15 @@ export class TicketsPage {
         {
           text: 'Annuler',
           handler: data => {
-            console.log('Cancel clicked');
+            console.log('Cancel clicked')
           }
         },
         {
           text: 'Ajouter',
           handler: data => {
-            for(let ticket in this.tickets){
-              if(this.tickets[ticket].qrcode === data.code){
-                this.presentAlert(409 + ", vous avez déjà ce billet.")
-                return
-              }
-            }
-            //this.contactBilletterie(data.code, data.name)
+            const found = this.tickets.find(ticket => ticket.qrcode === data.code)
+            if(found) this.presentAlert(409 + ", vous avez déjà ce billet.")
+            else this.contactBilletterie(data.code, data.name)
           }
         }
       ]
