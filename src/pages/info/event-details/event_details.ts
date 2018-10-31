@@ -19,7 +19,6 @@ export class EventDetailsPage{
   ionViewDidLoad() {
     this.args = this.navParams.get('arg')
     this.args.end_at = moment(this.args.end_at * 1000).format('HH:mm')
-    console.log(this.args)
   }
 
 

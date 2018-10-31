@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.uttnetgroup.billetterie" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.uttnetgroup.billetterie" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>billetterie-bde-mobile</name>
     <description>Application pour la billetterie du BDE UTT.</description>
     <author email="ung@utt.fr" href="ung.utt.fr">UTT Net Group</author>
@@ -88,5 +88,5 @@
     <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
     <plugin name="onesignal-cordova-plugin" spec="^2.4.4" />
     <engine name="ios" spec="4.5.5" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="^7.1.1" />
 </widget>

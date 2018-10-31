@@ -80,7 +80,7 @@ export class TicketsPage {
     this.tickets = this.tickets.map(ticket => {
       if(!ticket.options) ticket.options = []
       ticket.options = ticket.options.map(option => {
-        const name = this.getOptionName(ticket.price_id, option.id)
+        const name = option.name ? option.name : this.getOptionName(ticket.price_id, option.id)
         return { ...option, name }
       })
       return ticket
@@ -131,6 +131,20 @@ export class TicketsPage {
             if(res.status === 200){
               const t = res.data.data
               const price = this.prices.find(price => price.name === t.price)
+              t.options = t.options.map(option => {
+                const opt = price.options.find(opti => opti.id === option.id)
+                let { qty } = option
+                if(opt.max_choice === 1 && opt.min_choice === 0) {
+                  qty = qty === 1 ? true : false
+                }
+                return {
+                  id: t.id,
+                  name: option.name,
+                  isMandatory: opt.isMandatory,
+                  qty
+                }
+              })
+              t.options = t.options.filter(option => !option.isMandatory)
               this.storage.addTicket({
                 name: t.name,
                 surname: t.surname,
@@ -148,7 +162,7 @@ export class TicketsPage {
             }
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err)
           this.presentAlert(err.response.status + ', erreur: ' + err.response.data.error)
         })
   }

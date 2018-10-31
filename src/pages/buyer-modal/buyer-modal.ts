@@ -67,7 +67,6 @@ export class BuyerModal {
 
     this.request.post('order/get_prices', { mail: this.mail }) 
       .then(res => {
-        console.log(res)
         this.storage.setPrices(res.data.prices)
         modal.present()
       })

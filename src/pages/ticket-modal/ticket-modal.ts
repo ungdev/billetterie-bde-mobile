@@ -31,7 +31,6 @@ export class TicketModal {
       ) {
         this.price = params.get('price')
         this.ticket = params.get('ticket')
-        console.log(this.price, this.ticket)
         if(!this.price && this.ticket){
           this.price = this.ticket.price
         }
@@ -84,7 +83,6 @@ export class TicketModal {
 
   calculateTotal() {
     this.total = this.price.price
-    console.log(this.price)
     this.price.options.filter(option => option.isMandatory)
         .forEach(option => {
           if(moment(option.start_at).isBefore()  && moment(option.end_at).isAfter()){
@@ -160,13 +158,10 @@ export class TicketModal {
       fields,
       price: this.price
     }
-    console.log("TICKET", this.ticket)
     if(!this.isNew) {
       this.storage.removeCartTicket(this.ticket)
-      console.log('removed ticket from cart :', this.ticket)
     }
     this.storage.addCartTicket(this.ticket)
-    console.log('added ticket to cart :', this.ticket)
     this.close()
   }
 }
