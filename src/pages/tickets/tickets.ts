@@ -130,32 +130,38 @@ export class TicketsPage {
         .then(res => {
             if(res.status === 200){
               const t = res.data.data
-              const price = this.prices.find(price => price.name === t.price)
-              t.options = t.options.map(option => {
-                const opt = price.options.find(opti => opti.id === option.id)
-                let { qty } = option
-                if(opt.max_choice === 1 && opt.min_choice === 0) {
-                  qty = qty === 1 ? true : false
-                }
-                return {
-                  id: t.id,
-                  name: option.name,
-                  isMandatory: opt.isMandatory,
-                  qty
-                }
-              })
-              t.options = t.options.filter(option => !option.isMandatory)
-              this.storage.addTicket({
-                name: t.name,
-                surname: t.surname,
-                mail: t.mail,
-                qrcode: t.qrcode,
-                price_id: price.id,
-                isPaid: true,
-                options: t.options
-              })
-              this.tickets = this.storage.getTickets()
-              this.mapOptionNameToOption()
+              this.request.post('order/get_prices', { mail: t.mail }) 
+                .then(res => {
+                  this.storage.setPrices(res.data.prices)
+                  this.prices = res.data.prices
+                  const price = this.prices.find(price => price.name === t.price)
+                  t.options = t.options.map(option => {
+                    const opt = price.options.find(opti => opti.id === option.id)
+                    let { qty } = option
+                    if(opt.max_choice === 1 && opt.min_choice === 0) {
+                      qty = qty === 1 ? true : false
+                    }
+                    return {
+                      id: t.id,
+                      name: option.name,
+                      isMandatory: opt.isMandatory,
+                      qty
+                    }
+                  })
+                  t.options = t.options.filter(option => !option.isMandatory)
+                  this.storage.addTicket({
+                    name: t.name,
+                    surname: t.surname,
+                    mail: t.mail,
+                    qrcode: t.qrcode,
+                    price_id: price.id,
+                    isPaid: true,
+                    options: t.options
+                  })
+                  this.tickets = this.storage.getTickets()
+                  this.mapOptionNameToOption()
+                })
+                .catch(e => console.log(e))
             }
             else{
               this.presentAlert(res.data.statusCode)
