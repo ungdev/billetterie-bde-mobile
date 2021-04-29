@@ -1,0 +1,19 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: onesignal-cordova-plugin
+    versions:
+    - 2.11.2
+  - dependency-name: cordova-sqlite-storage
+    versions:
+    - 5.1.0
+  - dependency-name: cordova-ios
+    versions:
+    - 6.1.1
